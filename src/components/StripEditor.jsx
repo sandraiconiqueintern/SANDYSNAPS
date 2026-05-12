@@ -168,14 +168,14 @@ export default function StripEditor({ photos, layout, filter, onBack, onRestart 
                 className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
                 style={{ background: "#6fa3b5", color: "white", boxShadow: "0 4px 16px rgba(111,163,181,0.4)", borderRadius: "20px" }}
               >
-                ↓ PNG
+                 PNG
               </button>
               <button
                 onClick={() => download("jpg")}
                 className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
                 style={{ background: "#3d7a8a", color: "white", boxShadow: "0 4px 16px rgba(61,122,138,0.4)", borderRadius: "20px" }}
               >
-                ↓ JPG
+                 JPG
               </button>
             </div>
           </div>
@@ -190,14 +190,14 @@ export default function StripEditor({ photos, layout, filter, onBack, onRestart 
                 className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
                 style={{ background: "rgba(255,255,255,0.7)", color: "#6fa3b5", border: "1.5px solid rgba(111,163,181,0.4)", borderRadius: "20px" }}
               >
-                ← Retake
+                Retake
               </button>
               <button
                 onClick={onRestart}
                 className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
                 style={{ background: "rgba(255,255,255,0.7)", color: "#6fa3b5", border: "1.5px solid rgba(111,163,181,0.4)", borderRadius: "20px" }}
               >
-                ↺ New Session
+                New Session
               </button>
             </div>
           </div>
