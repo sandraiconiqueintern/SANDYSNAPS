@@ -44,18 +44,25 @@ export function useCamera() {
   const capturePhoto = useCallback((filterClass = "") => {
     if (!videoRef.current) return null;
     const video = videoRef.current;
+
+   
+    const displayW = video.clientWidth;
+    const displayH = video.clientHeight;
+
+    const streamW = video.videoWidth;
+    const streamH = video.videoHeight;
+
     const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    canvas.width = displayW;
+    canvas.height = displayH;
     const ctx = canvas.getContext("2d");
 
-    // mirror for front cam
-    if (facingMode === "user") {
-      ctx.translate(canvas.width, 0);
-      ctx.scale(-1, 1);
-    }
+    const scale = Math.max(displayW / streamW, displayH / streamH);
+    const scaledW = streamW * scale;
+    const scaledH = streamH * scale;
+    const offsetX = (displayW - scaledW) / 2;
+    const offsetY = (displayH - scaledH) / 2;
 
-    // apply filter via CSS filter string
     const filterMap = {
       "filter-warm": "sepia(0.4) saturate(1.3) brightness(1.05)",
       "filter-cool": "hue-rotate(20deg) saturate(0.9) brightness(1.05)",
@@ -65,8 +72,13 @@ export function useCamera() {
       "filter-vivid": "saturate(1.8) contrast(1.1)",
     };
     if (filterMap[filterClass]) ctx.filter = filterMap[filterClass];
+    if (facingMode === "user") {
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+    }
 
-    ctx.drawImage(video, 0, 0);
+    ctx.drawImage(video, offsetX, offsetY, scaledW, scaledH);
+
     return canvas.toDataURL("image/png");
   }, [facingMode]);
 
