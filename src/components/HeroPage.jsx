@@ -1,11 +1,87 @@
 import { useState } from "react";
 
+const glitchStyle = `
+  @keyframes glitch-skew {
+    /* glitch burst: 0–50% of 6s = 0–3s */
+    0%   { transform: skew(0deg); }
+    8%   { transform: skew(-2deg); }
+    16%  { transform: skew(0deg); }
+    33%  { transform: skew(1.5deg); }
+    41%  { transform: skew(0deg); }
+    /* calm: 50–100% of 6s = 3–6s */
+    50%  { transform: skew(0deg); }
+    100% { transform: skew(0deg); }
+  }
+
+  @keyframes glitch-clip-1 {
+    /* burst: 0–50% */
+    0%   { clip-path: inset(40% 0 50% 0); transform: translate(-4px, 0); opacity: 1; }
+    10%  { clip-path: inset(70% 0 10% 0); transform: translate(4px, 0);  opacity: 1; }
+    20%  { clip-path: inset(10% 0 80% 0); transform: translate(-2px, 0); opacity: 1; }
+    30%  { clip-path: inset(55% 0 30% 0); transform: translate(3px, 0);  opacity: 1; }
+    40%  { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 0); opacity: 1; }
+    /* fade out at 50%, hold invisible through calm */
+    50%  { clip-path: inset(50% 0 50% 0); transform: translate(0);        opacity: 0; }
+    99%  { clip-path: inset(50% 0 50% 0); transform: translate(0);        opacity: 0; }
+    /* reset 1 frame before next burst */
+    100% { clip-path: inset(40% 0 50% 0); transform: translate(-4px, 0); opacity: 1; }
+  }
+
+  @keyframes glitch-clip-2 {
+    /* burst: 0–50% */
+    0%   { clip-path: inset(60% 0 20% 0); transform: translate(4px, 0);  opacity: 1; }
+    12%  { clip-path: inset(15% 0 65% 0); transform: translate(-4px, 0); opacity: 1; }
+    24%  { clip-path: inset(80% 0 5%  0); transform: translate(2px, 0);  opacity: 1; }
+    36%  { clip-path: inset(30% 0 45% 0); transform: translate(-2px, 0); opacity: 1; }
+    48%  { clip-path: inset(10% 0 70% 0); transform: translate(3px, 0);  opacity: 1; }
+    /* fade out at 50% */
+    50%  { clip-path: inset(50% 0 50% 0); transform: translate(0);        opacity: 0; }
+    99%  { clip-path: inset(50% 0 50% 0); transform: translate(0);        opacity: 0; }
+    100% { clip-path: inset(60% 0 20% 0); transform: translate(4px, 0);  opacity: 1; }
+  }
+
+  .glitch-wrap {
+    position: relative;
+    display: inline-block;
+    animation: glitch-skew 6s infinite ease-in-out;
+  }
+
+  .glitch-wrap::before,
+  .glitch-wrap::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    pointer-events: none;
+  }
+
+  .glitch-wrap::before {
+    color: #a8d8e8;
+    animation: glitch-clip-1 6s infinite linear;
+  }
+
+  .glitch-wrap::after {
+    color: #3d7a8a;
+    animation: glitch-clip-2 6s infinite linear;
+    animation-delay: 0.15s;
+  }
+`;
+
 export default function HeroPage({ onStart }) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <div className="hero-bg min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
-      {/* subtle noise overlay */}
+      <style>{glitchStyle}</style>
+
+      {/* noise overlay */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
@@ -14,11 +90,17 @@ export default function HeroPage({ onStart }) {
       />
 
       <div className="text-center space-y-4 fade-in z-10 px-6">
-        <p className="brand-sub text-lg md:text-3xl tracking-wide" style={{ color: "#ffffff" }}>
+        <p
+          className="text-lg md:text-3xl tracking-wide"
+          style={{ fontFamily: "'Edu TAS Beginner', cursive", color: "#ffffff" }}
+        >
           Your story, our Lens.
         </p>
 
-        <h1 className="brand-title text-5xl md:text-7xl lg:text-8xl select-none">
+        <h1
+          className="brand-title text-5xl md:text-7xl lg:text-8xl select-none glitch-wrap"
+          data-text="sandy snaps"
+        >
           sandy snaps
         </h1>
 
@@ -40,7 +122,7 @@ export default function HeroPage({ onStart }) {
         </div>
       </div>
 
-      {/* decorative blobs */}
+      {/* blobs */}
       <div
         className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full opacity-20 pointer-events-none"
         style={{ background: "radial-gradient(circle, #6fa3b5, transparent)" }}

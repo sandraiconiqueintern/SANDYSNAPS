@@ -107,103 +107,115 @@ export default function StripEditor({ photos, layout, filter, onBack, onRestart 
   };
 
   return (
-    <div className="hero-bg min-h-screen px-8 py-10">
-      {/* title */}
-      <div className="fade-in text-center mb-10">
+    /* Outer wrapper: title pinned near top, content block centered in remaining space */
+    <div className="hero-bg min-h-screen flex flex-col px-8">
+
+      {/* Title — stays near the top. Adjust `pt-10` to move it up/down */}
+      <div className="fade-in text-center pt-10 pb-0">
         <h2 className="brand-title text-4xl md:text-8xl">style it</h2>
       </div>
 
-      {/* 3-column layout */}
-      <div className="flex flex-col md:flex-row gap-20 max-w-5xl mx-auto items-start justify-center">
 
-        {/* Left: color picker */}
-        <div className="flex-shrink-0 md:w-64">
-          <p className="text-sm font-medium mb-4" style={{ color: "#6fa3b5", fontFamily: "Poppins" }}>
-            Pick the color theme for your strip!
-          </p>
-          <div
-            className="flex flex-wrap gap-2 p-4 rounded-2xl"
-            style={{
-              background: "rgba(200,223,232,0.5)",
-              backdropFilter: "blur(12px)",
-              border: "1.5px solid rgba(111,163,181,0.3)",
-            }}
-          >
-            {THEMES.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => setTheme(t)}
-                className="flex flex-col items-center gap-1 px-2 py-2 rounded-xl transition-all duration-200 hover:scale-105"
-                style={{
-                  background: theme.id === t.id ? "rgba(111,163,181,0.25)" : "transparent",
-                  border: theme.id === t.id ? "2px solid #6fa3b5" : "2px solid transparent",
-                }}
-              >
-                <div className="w-7 h-7 rounded-full border-2" style={{ background: t.bg, borderColor: t.border }} />
-                <span className="text-xs btn-primary" style={{ color: "#3d7a8a" }}>{t.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
+      <div className="flex-1 flex items-center mt-2 mb-12">
+        <div className="flex flex-col md:flex-row gap-20 max-w-5xl mx-auto w-full items-center justify-center pr-24">
 
-        {/* Center: strip preview */}
-        <div className="flex justify-center flex-1">
-          <div
-            className="relative rounded-2xl overflow-hidden shadow-2xl fade-in"
-            style={{ background: theme.bg, border: `3px solid ${theme.border}`, width: "200px" }}
-          >
-            <canvas ref={canvasRef} className="w-full h-auto" style={{ display: "block" }} />
-          </div>
-        </div>
-
-        {/* Right: download + actions */}
-        <div className="flex-shrink-0 md:w-48 flex flex-col gap-8">
-          <div>
-            <p className="text-sm font-semibold mb-3" style={{ color: "#3d7a8a", fontFamily: "Poppins" }}>
-              Download
+          {/* Left: color picker */}
+          <div className="flex-shrink-0 md:w-64">
+            <p className="text-sm font-medium mb-4" style={{ color: "#6fa3b5", fontFamily: "Poppins" }}>
+              Pick the color theme for your strip!
             </p>
-            <div className="flex flex-col gap-2">
-              <button
-                onClick={() => download("png")}
-                className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
-                style={{ background: "#6fa3b5", color: "white", boxShadow: "0 4px 16px rgba(111,163,181,0.4)", borderRadius: "20px" }}
-              >
-                 PNG
-              </button>
-              <button
-                onClick={() => download("jpg")}
-                className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
-                style={{ background: "#3d7a8a", color: "white", boxShadow: "0 4px 16px rgba(61,122,138,0.4)", borderRadius: "20px" }}
-              >
-                 JPG
-              </button>
+            <div
+              className="flex flex-wrap gap-2 p-4 rounded-2xl"
+              style={{
+                background: "rgba(200,223,232,0.5)",
+                backdropFilter: "blur(12px)",
+                border: "1.5px solid rgba(111,163,181,0.3)",
+              }}
+            >
+              {THEMES.map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => setTheme(t)}
+                  className="flex flex-col items-center gap-1 px-2 py-2 rounded-xl transition-all duration-200 hover:scale-105"
+                  style={{
+                    background: theme.id === t.id ? "rgba(111,163,181,0.25)" : "transparent",
+                    border: theme.id === t.id ? "2px solid #6fa3b5" : "2px solid transparent",
+                  }}
+                >
+                  <div className="w-7 h-7 rounded-full border-2" style={{ background: t.bg, borderColor: t.border }} />
+                  <span className="text-xs btn-primary" style={{ color: "#3d7a8a" }}>{t.label}</span>
+                </button>
+              ))}
             </div>
           </div>
 
-          <div>
-            <p className="text-sm font-semibold mb-3" style={{ color: "#3d7a8a", fontFamily: "Poppins" }}>
-              All done?
-            </p>
-            <div className="flex flex-col gap-2">
-              <button
-                onClick={onBack}
-                className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
-                style={{ background: "rgba(255,255,255,0.7)", color: "#6fa3b5", border: "1.5px solid rgba(111,163,181,0.4)", borderRadius: "20px" }}
-              >
-                Retake
-              </button>
-              <button
-                onClick={onRestart}
-                className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
-                style={{ background: "rgba(255,255,255,0.7)", color: "#6fa3b5", border: "1.5px solid rgba(111,163,181,0.4)", borderRadius: "20px" }}
-              >
-                New Session
-              </button>
+          {/* Center: strip preview */}
+          <div className="flex flex-1 items-center justify-center">
+            <div
+              className="relative rounded-2xl overflow-hidden shadow-2xl fade-in"
+              style={{
+                background: theme.bg,
+                border: `3px solid ${theme.border}`,
+                width: "240px",
+                maxHeight: "calc(100vh - 220px)",
+                overflow: "hidden",
+              }}
+            >
+             
+              <canvas ref={canvasRef} className="w-full h-auto" style={{ display: "block" }} />
             </div>
           </div>
-        </div>
 
+          {/* Right: download + actions */}
+          <div className="flex-shrink-0 md:w-48 flex flex-col gap-8">
+            <div>
+              <p className="text-sm font-semibold mb-3" style={{ color: "#3d7a8a", fontFamily: "Poppins" }}>
+                Download
+              </p>
+              <div className="flex flex-col gap-2">
+                <button
+                  onClick={() => download("png")}
+                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
+                  style={{ background: "#6fa3b5", color: "white", boxShadow: "0 4px 16px rgba(111,163,181,0.4)", borderRadius: "20px" }}
+                >
+                  PNG
+                </button>
+                <button
+                  onClick={() => download("jpg")}
+                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
+                  style={{ background: "#3d7a8a", color: "white", boxShadow: "0 4px 16px rgba(61,122,138,0.4)", borderRadius: "20px" }}
+                >
+                  JPG
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-sm font-semibold mb-3" style={{ color: "#3d7a8a", fontFamily: "Poppins" }}>
+                All done?
+              </p>
+              <div className="flex flex-col gap-2">
+                <button
+                  onClick={onBack}
+                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
+                  style={{ background: "rgba(255,255,255,0.7)", color: "#6fa3b5", border: "1.5px solid rgba(111,163,181,0.4)", borderRadius: "20px" }}
+                >
+                  Retake
+                </button>
+                <button
+                  onClick={onRestart}
+                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
+                  style={{ background: "rgba(255,255,255,0.7)", color: "#6fa3b5", border: "1.5px solid rgba(111,163,181,0.4)", borderRadius: "20px" }}
+                >
+                  New Session
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
+
     </div>
   );
 }

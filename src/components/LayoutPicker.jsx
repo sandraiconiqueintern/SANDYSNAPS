@@ -36,10 +36,12 @@ const LAYOUTS = [
 
 export default function LayoutPicker({ onSelect }) {
   return (
-    <div className="hero-bg min-h-screen flex flex-col items-center px-6 py-12">
-      <div className="fade-in text-center mb-10">
-        <h2 className="brand-title text-4xl md:text-8xl mb-2">pick a layout</h2>
-        <p className="text-sm" style={{ color: "#6fa3b5", fontFamily: "Poppins" }}>Choose how your photos will be arranged</p>
+    <div className="hero-bg min-h-screen flex flex-col items-center justify-center px-6 gap-12">
+      <div className="fade-in text-center">
+        <h2 className="brand-title text-4xl md:text-8xl mb-4">pick a layout!</h2>
+        <p className="text-2sm" style={{ color: "#000000", fontFamily: "Poppins" }}>
+          Choose how your photos will be arranged
+        </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 w-full max-w-2xl">
@@ -55,12 +57,23 @@ export default function LayoutPicker({ onSelect }) {
               boxShadow: "0 4px 20px rgba(111,163,181,0.1)",
             }}
           >
-            <div style={{ color: "#6fa3b5" }} className="transition-transform duration-300 group-hover:scale-110">
-              {layout.icon}
+            {/* fixed-height icon wrapper */}
+            <div
+              className="flex items-center justify-center"
+              style={{ height: "84px", color: "#6fa3b5" }}
+            >
+              <div className="transition-transform duration-300 group-hover:scale-110">
+                {layout.icon}
+              </div>
             </div>
+
             <div className="text-center">
-              <p className="font-semibold text-sm" style={{ color: "#3d7a8a", fontFamily: "Poppins" }}>{layout.label}</p>
-              <p className="text-xs mt-0.5" style={{ color: "#6fa3b5", fontFamily: "Poppins" }}>{layout.desc}</p>
+              <p className="font-semibold text-sm" style={{ color: "#3d7a8a", fontFamily: "Poppins" }}>
+                {layout.label}
+              </p>
+              <p className="text-xs mt-0.5" style={{ color: "#6fa3b5", fontFamily: "Poppins" }}>
+                {layout.desc}
+              </p>
             </div>
           </button>
         ))}
