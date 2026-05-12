@@ -28,7 +28,7 @@ function countdownStyle(val) {
 }
 
 export default function CameraBooth({ layout, onDone }) {
-  const { videoRef, hasPermission, error, startCamera, flipCamera, capturePhoto } = useCamera();
+const { videoRef, hasPermission, error, facingMode, startCamera, flipCamera, capturePhoto } = useCamera();
   const [photos, setPhotos] = useState([]);
   const [countdown, setCountdown] = useState(null);
   const [countKey, setCountKey] = useState(0);
