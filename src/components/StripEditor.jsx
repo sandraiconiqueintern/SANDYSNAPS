@@ -107,25 +107,24 @@ export default function StripEditor({ photos, layout, filter, onBack, onRestart 
   };
 
   return (
-    /* Outer wrapper: title pinned near top, content block centered in remaining space */
-    <div className="hero-bg min-h-screen flex flex-col px-8">
+    <div className="hero-bg min-h-screen flex flex-col px-4 md:px-8">
 
-      {/* Title — stays near the top. Adjust `pt-10` to move it up/down */}
-      <div className="fade-in text-center pt-10 pb-0">
+      {/* Title — consistent gap to content across all sizes */}
+      <div className="fade-in text-center pt-10 pb-6 md:pb-0">
         <h2 className="brand-title text-4xl md:text-8xl">style it</h2>
       </div>
 
+      {/* Content area */}
+      <div className="flex-1 flex items-center justify-center mt-6 md:mt-2 mb-12">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-12 lg:gap-20 w-full max-w-4xl mx-auto items-center justify-center">
 
-      <div className="flex-1 flex items-center mt-2 mb-12">
-        <div className="flex flex-col md:flex-row gap-20 max-w-5xl mx-auto w-full items-center justify-center pr-24">
-
-          {/* Left: color picker */}
-          <div className="flex-shrink-0 md:w-64">
-            <p className="text-sm font-medium mb-4" style={{ color: "#6fa3b5", fontFamily: "Poppins" }}>
+          {/* Color picker */}
+          <div className="w-full max-w-xs md:w-64 md:flex-shrink-0">
+            <p className="text-sm font-medium mb-4 text-center md:text-left" style={{ color: "#6fa3b5", fontFamily: "Poppins" }}>
               Pick the color theme for your strip!
             </p>
             <div
-              className="flex flex-wrap gap-2 p-4 rounded-2xl"
+              className="flex flex-wrap gap-2 p-4 rounded-2xl justify-center md:justify-start"
               style={{
                 background: "rgba(200,223,232,0.5)",
                 backdropFilter: "blur(12px)",
@@ -149,40 +148,39 @@ export default function StripEditor({ photos, layout, filter, onBack, onRestart 
             </div>
           </div>
 
-          {/* Center: strip preview */}
-          <div className="flex flex-1 items-center justify-center">
+          {/* Strip preview */}
+          <div className="flex items-center justify-center">
             <div
               className="relative rounded-2xl overflow-hidden shadow-2xl fade-in"
               style={{
                 background: theme.bg,
                 border: `3px solid ${theme.border}`,
-                width: "240px",
+                width: "220px",
                 maxHeight: "calc(100vh - 220px)",
                 overflow: "hidden",
               }}
             >
-             
               <canvas ref={canvasRef} className="w-full h-auto" style={{ display: "block" }} />
             </div>
           </div>
 
-          {/* Right: download + actions */}
-          <div className="flex-shrink-0 md:w-48 flex flex-col gap-8">
-            <div>
-              <p className="text-sm font-semibold mb-3" style={{ color: "#3d7a8a", fontFamily: "Poppins" }}>
+          {/* Download + actions */}
+          <div className="w-full max-w-xs md:w-48 md:flex-shrink-0 flex flex-col gap-8 items-center md:items-start">
+            <div className="w-full">
+              <p className="text-sm font-semibold mb-3 text-center md:text-left" style={{ color: "#3d7a8a", fontFamily: "Poppins" }}>
                 Download
               </p>
               <div className="flex flex-col gap-2">
                 <button
                   onClick={() => download("png")}
-                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
+                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95 w-full"
                   style={{ background: "#6fa3b5", color: "white", boxShadow: "0 4px 16px rgba(111,163,181,0.4)", borderRadius: "20px" }}
                 >
                   PNG
                 </button>
                 <button
                   onClick={() => download("jpg")}
-                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
+                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95 w-full"
                   style={{ background: "#3d7a8a", color: "white", boxShadow: "0 4px 16px rgba(61,122,138,0.4)", borderRadius: "20px" }}
                 >
                   JPG
@@ -190,21 +188,21 @@ export default function StripEditor({ photos, layout, filter, onBack, onRestart 
               </div>
             </div>
 
-            <div>
-              <p className="text-sm font-semibold mb-3" style={{ color: "#3d7a8a", fontFamily: "Poppins" }}>
+            <div className="w-full">
+              <p className="text-sm font-semibold mb-3 text-center md:text-left" style={{ color: "#3d7a8a", fontFamily: "Poppins" }}>
                 All done?
               </p>
               <div className="flex flex-col gap-2">
                 <button
                   onClick={onBack}
-                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
+                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95 w-full"
                   style={{ background: "rgba(255,255,255,0.7)", color: "#6fa3b5", border: "1.5px solid rgba(111,163,181,0.4)", borderRadius: "20px" }}
                 >
                   Retake
                 </button>
                 <button
                   onClick={onRestart}
-                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95"
+                  className="btn-primary px-6 py-2.5 text-sm tracking-wide transition-all hover:scale-105 active:scale-95 w-full"
                   style={{ background: "rgba(255,255,255,0.7)", color: "#6fa3b5", border: "1.5px solid rgba(111,163,181,0.4)", borderRadius: "20px" }}
                 >
                   New Session
