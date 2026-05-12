@@ -1,3 +1,4 @@
+{/* CameraBooth.jsx - React component for camera interface with countdown, filters, and photo capture */}
 import { useEffect, useState, useCallback } from "react";
 import { useCamera } from "../hooks/useCamera";
 
@@ -115,7 +116,7 @@ export default function CameraBooth({ layout, onDone }) {
             playsInline
             muted
             className={`w-full h-full object-cover ${filter}`}
-            style={{ transform: "scaleX(-1)" }}
+            style={{ transform: facingMode === "user" ? "scaleX(-1)" : "none" }}
           />
         )}
 
