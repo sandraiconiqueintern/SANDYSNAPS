@@ -20,9 +20,6 @@ Your story, our Lens. A browser-based photobooth app built with React + Vite + T
 - HTML5 Canvas (strip generation)
 - Google Fonts: Rubik Glitch, Edu TAS Beginner, Poppins
 
-## Getting Started
+## You may visit in on: 
 
-```bash
-npm install
-npm run dev
-```
+- https://sandysnaps.netlify.app/

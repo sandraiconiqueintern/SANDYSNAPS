@@ -171,7 +171,7 @@ export default function StripEditor({ photos, layout, filter, onBack, onRestart 
 
       {/* Content */}
       <div className="flex-1 flex items-center justify-center mt-6 md:mt-2 mb-12">
-        <div className="flex flex-col md:flex-row gap-8 md:gap-10 xl:gap-16 w-full max-w-6xl mx-auto items-center justify-between">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-10 xl:gap-16 w-full max-w-6xl mx-auto items-center justify-center ">
 
           {/* Left: color picker */}
           <div className="w-full max-w-xs md:w-72 flex-shrink-0">
