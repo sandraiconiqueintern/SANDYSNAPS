@@ -22,7 +22,7 @@ body {
 
 .hero-bg {
   background: radial-gradient(ellipse 60% 50% at 45% 40%, var(--sandy-glow) 0%, transparent 70%),
-    linear-gradient(135deg, #f0f4f8 0%, #dceef5 30%, #c8dfe8 60%, #e8f0f5 100%);
+    linear-gradient(135deg, #E2F9FF 0%, #d5f3ff 30%, #c8dfe8 60%, #dcf2ff 100%);
 }
 
 .brand-title {

@@ -2,39 +2,32 @@ import { useState } from "react";
 
 const glitchStyle = `
   @keyframes glitch-skew {
-    /* glitch burst: 0–50% of 6s = 0–3s */
     0%   { transform: skew(0deg); }
     8%   { transform: skew(-2deg); }
     16%  { transform: skew(0deg); }
     33%  { transform: skew(1.5deg); }
     41%  { transform: skew(0deg); }
-    /* calm: 50–100% of 6s = 3–6s */
     50%  { transform: skew(0deg); }
     100% { transform: skew(0deg); }
   }
 
   @keyframes glitch-clip-1 {
-    /* burst: 0–50% */
     0%   { clip-path: inset(40% 0 50% 0); transform: translate(-4px, 0); opacity: 1; }
     10%  { clip-path: inset(70% 0 10% 0); transform: translate(4px, 0);  opacity: 1; }
     20%  { clip-path: inset(10% 0 80% 0); transform: translate(-2px, 0); opacity: 1; }
     30%  { clip-path: inset(55% 0 30% 0); transform: translate(3px, 0);  opacity: 1; }
     40%  { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 0); opacity: 1; }
-    /* fade out at 50%, hold invisible through calm */
     50%  { clip-path: inset(50% 0 50% 0); transform: translate(0);        opacity: 0; }
     99%  { clip-path: inset(50% 0 50% 0); transform: translate(0);        opacity: 0; }
-    /* reset 1 frame before next burst */
     100% { clip-path: inset(40% 0 50% 0); transform: translate(-4px, 0); opacity: 1; }
   }
 
   @keyframes glitch-clip-2 {
-    /* burst: 0–50% */
     0%   { clip-path: inset(60% 0 20% 0); transform: translate(4px, 0);  opacity: 1; }
     12%  { clip-path: inset(15% 0 65% 0); transform: translate(-4px, 0); opacity: 1; }
     24%  { clip-path: inset(80% 0 5%  0); transform: translate(2px, 0);  opacity: 1; }
     36%  { clip-path: inset(30% 0 45% 0); transform: translate(-2px, 0); opacity: 1; }
     48%  { clip-path: inset(10% 0 70% 0); transform: translate(3px, 0);  opacity: 1; }
-    /* fade out at 50% */
     50%  { clip-path: inset(50% 0 50% 0); transform: translate(0);        opacity: 0; }
     99%  { clip-path: inset(50% 0 50% 0); transform: translate(0);        opacity: 0; }
     100% { clip-path: inset(60% 0 20% 0); transform: translate(4px, 0);  opacity: 1; }
@@ -89,6 +82,22 @@ export default function HeroPage({ onStart }) {
         }}
       />
 
+      {/* ellipse background */}
+      <img
+        src="/Ellipse.svg"
+        aria-hidden="true"
+        className="absolute pointer-events-none select-none"
+        style={{
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "min(90vw, 700px)",
+          height: "auto",
+          opacity: 100,
+          mixBlendMode: "overlay",
+        }}
+      />
+
       <div className="text-center space-y-4 fade-in z-10 px-6">
         <p
           className="text-lg md:text-3xl tracking-wide"
@@ -111,7 +120,7 @@ export default function HeroPage({ onStart }) {
             onMouseLeave={() => setHovered(false)}
             className="btn-primary px-12 py-3 text-sm md:text-base tracking-widest uppercase transition-all duration-300 hover:scale-105 active:scale-95"
             style={{
-              background: hovered ? "#62858E" : "transparent",
+              background: hovered ? "#E2F9FF" : "transparent",
               color: "white",
               border: "2px solid white",
               borderRadius: "20px",
@@ -124,12 +133,20 @@ export default function HeroPage({ onStart }) {
 
       {/* blobs */}
       <div
-        className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full opacity-20 pointer-events-none"
-        style={{ background: "radial-gradient(circle, #6fa3b5, transparent)" }}
+        className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, #4FBEE6, transparent)",
+          opacity: 0.35,
+          filter: "blur(60px)",
+        }}
       />
       <div
-        className="absolute -top-10 -right-10 w-56 h-56 rounded-full opacity-15 pointer-events-none"
-        style={{ background: "radial-gradient(circle, #b8d4de, transparent)" }}
+        className="absolute -top-10 -right-10 w-56 h-56 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, #4FBEE6, transparent)",
+          opacity: 0.25,
+          filter: "blur(50px)",
+        }}
       />
     </div>
   );
